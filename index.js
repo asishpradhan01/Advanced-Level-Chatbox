@@ -14,7 +14,7 @@ return chatLi;
 }
 
 const generateResponse = (incomingChatLi) => {
-  const API_URL = "http://localhost:5000/api/chat"; 
+  const API_URL = "https://advanced-chatbox.onrender.com/api/chat";
   const messageElement = incomingChatLi.querySelector("p");
 
   const requestOption = {
