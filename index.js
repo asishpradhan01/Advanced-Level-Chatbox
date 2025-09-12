@@ -13,31 +13,25 @@ return chatLi;
 
 }
 
-const generateResponse = (incomingChatLi) => {
-  const API_URL = "https://advanced-chatbox.onrender.com/api/chat";
+const generateResponse = (incomingChatLi, userMessage) => {
+  const API_URL = "/api/chat";
   const messageElement = incomingChatLi.querySelector("p");
 
-  const requestOption = {
+  fetch(API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      message: userMessage
-    })
-  };
-
-  fetch(API_URL, requestOption)
+    body: JSON.stringify({ message: userMessage })
+  })
     .then(res => res.json())
     .then(data => {
       messageElement.textContent = data.reply;
     })
-    .catch((error) => {
+    .catch(() => {
       messageElement.textContent = "Oops, something went wrong!";
     });
 };
-
-
 
 const handleChat = () => {
     userMessage = input.value.trim();
@@ -47,7 +41,7 @@ const handleChat = () => {
     setTimeout(() => {
         const incomingChatLi = createChatLi("Thinking...", "incoming")
        chatbox.appendChild(incomingChatLi);
-       generateResponse(incomingChatLi);
+       generateResponse(incomingChatLi, userMessage);
     }, 600);
 }
 
